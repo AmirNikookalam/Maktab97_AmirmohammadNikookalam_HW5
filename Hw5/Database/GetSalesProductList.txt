@@ -1,0 +1,1 @@
+{"StockId":2,"Name":"Candy_123","ProductId":1,"ProductQuantity":3,"ProductPrice":2000}
