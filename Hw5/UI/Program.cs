@@ -39,7 +39,7 @@ namespace Hw5.UI
                         Console.Write("warning: ");
                         Console.ForegroundColor= ConsoleColor.White;
 
-                        Console.Write("For naming the product you must first start with capital latter falo with three of four small letter one \"_\" \nand three digit\n\nProduct Name: ");
+                        Console.Write("For naming the product you must first start with capital letter fallow with three of four small letter one \"_\" \nand three digit\n\nProduct Name: ");
                         addingProduct = Console.ReadLine();
                         newProduct.ProductName = addingProduct;
 
