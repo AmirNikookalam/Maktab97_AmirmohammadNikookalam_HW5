@@ -23,7 +23,7 @@ namespace Hw5.UI
             do 
             {
                 Console.Clear();
-                Console.Write("--1.Product menu/2.Stock menu--\n-");
+                Console.Write("1.Product menu \n2.Stock menu-- \n-");
                 firstMenuInput = Console.ReadLine();
 
                 if (firstMenuInput == "1") 
