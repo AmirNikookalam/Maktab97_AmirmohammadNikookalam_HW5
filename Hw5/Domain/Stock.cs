@@ -14,7 +14,7 @@ namespace Hw5.Domain
         public int ProductQuantity { get; set; }
         public int ProductPrice { get; set; }
 
-        public Stock(int stockId = 0, string? name = "null", int productId = 0, int productQuantity = 0, int productPrice = 0)
+        public Stock(int stockId = 0, int productId = 0, string name = null, int productQuantity = 0, int productPrice = 0)
         {
             StockId = stockId;
             Name = name;

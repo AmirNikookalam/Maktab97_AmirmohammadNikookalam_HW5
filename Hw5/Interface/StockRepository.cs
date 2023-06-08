@@ -40,6 +40,42 @@ namespace Hw5.Interface
             }
         }
 
+        public string SaleProduct(int productId, int count)
+        {
+            var oldQuantity = StockServices.Quantity(productId);
+
+            if (oldQuantity > count)
+            {
+                int newQuantity = oldQuantity - count;
+                if (newQuantity >= 0)
+                {
+                    var lines = Json.StockDeserialize();
+
+
+                    foreach (var line in lines)
+                    {
+                        if (line.ProductId == productId)
+                        {
+
+                            line.ProductQuantity = newQuantity;
+
+                            StockServices.OverWriting(productId, line);
+                            return "product salded";
+                        }
+                    }
+                    return "no product found";
+                }
+                else
+                {
+                    return "need more product!";
+                }
+            }
+            else
+            {
+                return "you dont have any products ";
+            }
+        }
+
         public List<Stock> GetSalesProductList()
         {
             var lines = Json.StockDeserialize();
@@ -55,40 +91,5 @@ namespace Hw5.Interface
             return result;
         }
 
-        public string SaleProduct(int productId, int count)
-        {
-            var oldQuantity = StockServices.Quantity(productId);
-
-            if(oldQuantity > count)
-            {
-                int newQuantity = oldQuantity - count;
-                if(newQuantity >= 0)
-                {
-                    var lines = Json.StockDeserialize();
-
-
-                    foreach (var line in lines)
-                    {
-                        if(line.ProductId == productId)
-                        {
-
-                            line.ProductQuantity = newQuantity;
-
-                            StockServices.OverWriting(productId, line);
-                            return "product salded"; 
-                        }
-                    }
-                    return "no product found";
-                }
-                else
-                {
-                    return "need more product!";
-                }
-            }
-            else
-            {
-                return "you dont have any products ";
-            }
-        }
     }
 }

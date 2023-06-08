@@ -25,6 +25,19 @@ namespace Hw5.Interface
             return "not valid name";
         }
 
+        public List<Product> GetProductList()
+        {
+            List<Product> produtList = new List<Product>();
+
+            var fileToJson = Json.ProductDeserialize();
+
+            foreach (var line in fileToJson)
+            {
+                produtList.Add(line);
+            }
+            return produtList;
+        }
+
         public string GetProductById(int id)
         {
             var JsonL = Json.ProductDeserialize();
@@ -36,20 +49,7 @@ namespace Hw5.Interface
                     return line.ProductName;
                 }
             }
-            return "no product found";
-        }
-
-        public List<Product> GetProductList()
-        {
-            List<Product> produtList = new List<Product>();
-
-            var fileToJson = Json.ProductDeserialize();
-
-            foreach(var line in fileToJson)
-            {
-                produtList.Add(line);
-            }
-            return produtList;
+            return "Your product not found";
         }
     }
 }
