@@ -68,14 +68,14 @@ namespace Hw5.services
         }
         public static void SalesProductList(List<Stock> stockList)
         {
-            StreamWriter j = new StreamWriter(pathToGetSalesProductList);
+            StreamWriter sw = new StreamWriter(pathToGetSalesProductList);
             
             foreach( var line in stockList)
             {
                 string json = JsonConvert.SerializeObject(line);
-                j.WriteLine(json);
+                sw.WriteLine(json);
             }
-            j.Close();
+            sw.Close();
         }
     }
 }

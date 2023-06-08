@@ -81,11 +81,11 @@ namespace Hw5.services
         {
             var lines = Json.StockDeserialize();
 
-            var g = from j in lines
-                    where j.ProductId == productId
-                    select j.ProductQuantity;
+            var quantity = from line in lines
+                    where line.ProductId == productId
+                    select line.ProductQuantity;
 
-            return g.Sum();
+            return quantity.Sum();
         }
         public static int Price(int id ,int cnt)
         {
