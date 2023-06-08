@@ -55,13 +55,13 @@ namespace Hw5.Interface
             return result;
         }
 
-        public string SaleProduct(int productId, int cnt)
+        public string SaleProduct(int productId, int count)
         {
             var oldQuantity = StockServices.Quantity(productId);
 
-            if(oldQuantity > 0)
+            if(oldQuantity > count)
             {
-                int newQuantity = oldQuantity - cnt;
+                int newQuantity = oldQuantity - count;
                 if(newQuantity >= 0)
                 {
                     var lines = Json.StockDeserialize();
