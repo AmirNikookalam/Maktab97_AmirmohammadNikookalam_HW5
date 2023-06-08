@@ -1,8 +1,6 @@
 ﻿using Hw5.Domain;
 using Hw5.Interface;
 using Hw5.services;
-using Newtonsoft.Json;
-using System.IO;
 
 namespace Hw5.Entity
 {
@@ -10,7 +8,7 @@ namespace Hw5.Entity
     {
         public string BuyProduct(Stock productInStock)
         {
-            string pathToStock = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
+            string stockPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
 
 
             ProductRepository productRepository = new ProductRepository();

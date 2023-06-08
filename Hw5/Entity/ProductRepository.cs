@@ -16,23 +16,22 @@ namespace Hw5.Entity
             {
                 var id = ProductServices.GiveProductId();
                 int barcode = RandomNumberGenerator.GetInt32(100000000, 999999999);
-
                 var newProduct = new Product(id, name, barcode);
 
                 Json.SerializeObject(newProduct, "Product");
 
-                return "product added";
+                return "Product succussfully added";
             }
-            return "not valid name";
+            return "Error: Please give a valid name";
         }
 
         public List<Product> GetProductList()
         {
             List<Product> produtList = new List<Product>();
 
-            var fileToJson = Json.ProductDeserialize();
+            var JsonL = Json.ProductDeserialize();
 
-            foreach (var line in fileToJson)
+            foreach (var line in JsonL)
             {
                 produtList.Add(line);
             }
