@@ -1,18 +1,11 @@
 ﻿using Hw5.Domain;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hw5.services
 {
     public static class StockServices
     {
-        private static string pathToStock = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
+        private static string stockPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
         public static int Quantity(int productId)
         {
             var lines = Json.StockDeserialize();
@@ -23,7 +16,7 @@ namespace Hw5.services
 
             return quantity.Sum();
         }
-        public static int Price(int id, int cnt)
+        public static int Price(int id, int count)
         {
             int price = 0;
             var JsonL = Json.StockDeserialize();
@@ -31,12 +24,9 @@ namespace Hw5.services
             try
             {
                 foreach (var line in JsonL)
-                {
                     if (line.ProductId == id)
-                    {
-                        price = (line.ProductPrice * line.ProductQuantity) + (line.ProductPrice * cnt) / line.ProductQuantity;
-                    }
-                }
+                        price = (line.ProductPrice * line.ProductQuantity) + (line.ProductPrice * count) / line.ProductQuantity;
+
                 return (price);
             }
             catch
@@ -45,13 +35,22 @@ namespace Hw5.services
             }
 
         }
+        public static void OverWriting(int id, object product)
+        {
+            string objectToFile = JsonConvert.SerializeObject(product);
+            string[] lines = File.ReadAllLines(stockPath);
+
+            lines[id] = objectToFile;
+
+            File.WriteAllLines(stockPath, lines);
+        }
         public static int GetStockId()
         {
             int id = 1;
             var lines = Json.StockDeserialize();
 
-            foreach(var line in lines)
-                if(line.StockId == id)
+            foreach (var line in lines)
+                if (line.StockId == id)
                     id++;
 
             return id;
@@ -59,15 +58,13 @@ namespace Hw5.services
         public static int FindLine(int id)
 
         {
-            string[] lines = File.ReadAllLines(pathToStock);
+            string[] lines = File.ReadAllLines(stockPath);
 
             for (int i = 0; i < lines.Length; i++)
             {
-                var specificProduct = JsonConvert.DeserializeObject<Stock>(lines[i]);
-                if (id == specificProduct.ProductId)
-                {
+                var targetProduct = JsonConvert.DeserializeObject<Stock>(lines[i]);
+                if (id == targetProduct.ProductId)
                     return i;
-                }
             }
             return 0;
         }
@@ -75,36 +72,21 @@ namespace Hw5.services
         {
             var lines = Json.ProductDeserialize();
 
-            foreach(var line in lines)
-            {
-                if(line.ProductId == id)
-                {
+            foreach (var line in lines)
+                if (line.ProductId == id)
                     return line.ProductName;
-                }
-            }
+
             throw new Exception();
         }
         public static int CheckProductQuantity(int productId)
         {
             var lines = Json.StockDeserialize();
 
-            foreach(var line in lines)
-            {
+            foreach (var line in lines)
                 if (line.ProductId == productId)
-                {
                     return line.ProductQuantity;
-                }
-            }
+
             return 0;
-        }
-        public static void OverWriting(int id, object product)
-        {
-            string objectToFile = JsonConvert.SerializeObject(product);
-            string[] lines = File.ReadAllLines(pathToStock);
-
-            lines[id] = objectToFile;
-
-            File.WriteAllLines(pathToStock, lines);
         }
     }
 }
