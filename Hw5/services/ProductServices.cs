@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Hw5.services
 {
@@ -11,15 +6,12 @@ namespace Hw5.services
     {
         public static bool CheckProductName(string productName)
         {
-            string regexPattern = "[A-Z][a-z]{3,5}[_][0-9]{3}";
 
-            bool status = Regex.IsMatch(productName, regexPattern);
-
+            bool status = Regex.IsMatch(productName, @"^[A-Z]+([a-z]{3})+.+_+([\d]){3}$");
             if (status)
-            {
                 return true;
-            }
-            return false;
+            else
+                return false;
         }
         public static int GiveProductId()
         {

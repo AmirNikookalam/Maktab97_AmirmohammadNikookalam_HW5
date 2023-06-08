@@ -1,7 +1,7 @@
 ﻿using Hw5.Domain;
 using Hw5.Interface;
 
-namespace Hw5.UI
+namespace Hw5
 {
     internal class Program
     {
@@ -20,24 +20,24 @@ namespace Hw5.UI
             int stockInProduct;
             int productPrice = 0;
 
-            do 
+            do
             {
                 Console.Clear();
                 Console.Write("1.Product menu \n2.Stock menu-- \n-");
                 firstMenuInput = Console.ReadLine();
 
-                if (firstMenuInput == "1") 
+                if (firstMenuInput == "1")
                 {
                     Console.Clear();
                     Console.Write("---You are in product menu---\n--1.Adding Product/2.Get Product by Id/3.Product list/4.Exit---\n-");
                     productmenu = Console.ReadLine();
 
-                    if(productmenu == "1")
+                    if (productmenu == "1")
                     {
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("warning: ");
-                        Console.ForegroundColor= ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.White;
 
                         Console.Write("For naming the product you must first start with capital letter fallow with three of four small letter one \"_\" \nand three digit\n\nProduct Name: ");
                         addingProduct = Console.ReadLine();
@@ -47,7 +47,7 @@ namespace Hw5.UI
                         Console.WriteLine(newpro);
                         Thread.Sleep(2000);
                     }
-                    else if(productmenu == "2")
+                    else if (productmenu == "2")
                     {
                         try
                         {
@@ -66,17 +66,18 @@ namespace Hw5.UI
                             Console.WriteLine("not valid input");
                             Thread.Sleep(1000);
                         }
-                        
-                    }else if (productmenu == "3")
+
+                    }
+                    else if (productmenu == "3")
                     {
                         Console.Clear();
                         var list = productRe.GetProductList();
 
-                        if(list.Count == 0)
+                        if (list.Count == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("you dont have any product!");
-                            Console.ForegroundColor= ConsoleColor.White;
+                            Console.ForegroundColor = ConsoleColor.White;
 
                             Thread.Sleep(2000);
                         }
@@ -94,14 +95,14 @@ namespace Hw5.UI
                         continue;
                     }
                 }
-                else if (firstMenuInput == "2") 
+                else if (firstMenuInput == "2")
                 {
                     Console.Clear();
                     Console.WriteLine("---You are in Stock menu---");
                     Console.Write("--1.Buy product/2.sale product/3.Stock List/Exite\n-");
                     stockmenu = Console.ReadLine();
-                    
-                    if(stockmenu == "1")
+
+                    if (stockmenu == "1")
                     {
                         var list = productRe.GetProductList();
 
@@ -136,12 +137,13 @@ namespace Hw5.UI
 
                             Console.WriteLine(buyProduct);
                             Thread.Sleep(2000);
-                        }catch(Exception) 
+                        }
+                        catch (Exception)
                         {
                             Console.WriteLine("not valid input");
                             Thread.Sleep(1000);
                         }
-                        
+
                     }
                     else if (stockmenu == "2")
                     {
@@ -171,13 +173,13 @@ namespace Hw5.UI
                             Console.WriteLine("not valid input");
                             Thread.Sleep(1000);
                         }
-                        
+
                     }
                     else if (stockmenu == "3")
                     {
                         var lines = stockRe.GetSalesProductList();
 
-                        foreach(var line in lines)
+                        foreach (var line in lines)
                         {
                             Console.WriteLine(line.Name);
                         }
@@ -194,7 +196,7 @@ namespace Hw5.UI
                     continue;
                 }
             } while (true);
-            
+
         }
     }
 }
