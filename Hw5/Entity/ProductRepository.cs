@@ -32,9 +32,8 @@ namespace Hw5.Entity
             var JsonL = Json.ProductDeserialize();
 
             foreach (var line in JsonL)
-            {
                 produtList.Add(line);
-            }
+
             return produtList;
         }
 
@@ -43,13 +42,10 @@ namespace Hw5.Entity
             var JsonL = Json.ProductDeserialize();
 
             foreach (var line in JsonL)
-            {
                 if (line.ProductId == id)
-                {
                     return line.ProductName;
-                }
-            }
-            return "Your product not found";
+
+            return "Error: Your product not found";
         }
     }
 }

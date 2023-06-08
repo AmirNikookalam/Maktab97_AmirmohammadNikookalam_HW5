@@ -17,14 +17,17 @@ namespace Hw5.Entity
             if (quantity != 0)
             {
                 var newQuantity = quantity + productInStock.ProductQuantity;
-                var newProductPrice = productInStock.ProductPrice * quantity + productInStock.ProductPrice * (quantity - productInStock.ProductQuantity) / newQuantity;
+                var newProductPrice = productInStock.ProductPrice * quantity + productInStock.ProductPrice *
+                    (quantity - productInStock.ProductQuantity) / newQuantity;
+
+                //
                 productInStock.ProductQuantity = newQuantity;
                 productInStock.ProductPrice = newProductPrice;
                 productInStock.Name = StockServices.FindProductName(productInStock.ProductId);
                 productInStock.StockId = StockServices.GetStockId();
 
-                var target = StockServices.FindLine(productInStock.ProductId);
-                StockServices.OverWriting(target, productInStock);
+                var targetProduct = StockServices.FindLine(productInStock.ProductId);
+                StockServices.OverWriting(targetProduct, productInStock);
 
                 return productRepository.GetProductById(productInStock.ProductId) + "updateted";
             }
@@ -50,9 +53,7 @@ namespace Hw5.Entity
                 {
                     var lines = Json.StockDeserialize();
 
-
                     foreach (var line in lines)
-                    {
                         if (line.ProductId == productId)
                         {
 
@@ -61,7 +62,7 @@ namespace Hw5.Entity
                             StockServices.OverWriting(productId, line);
                             return "product salded";
                         }
-                    }
+
                     return "no product found";
                 }
                 else

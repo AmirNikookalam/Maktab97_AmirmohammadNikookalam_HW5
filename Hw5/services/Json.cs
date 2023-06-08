@@ -13,8 +13,8 @@ namespace Hw5.services
 {
     public static class Json
     {
-        private static string pathToProduct = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\ProductJson.json" ;
-        private static string pathToStock = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
+        private static string productPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\ProductJson.json" ;
+        private static string stockPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\StockJson.json";
         private static string pathToGetSalesProductList = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\Database\\GetSalesProductList.txt";
         public static string SerializeObject(object obj, string fileName)
         {
@@ -25,38 +25,38 @@ namespace Hw5.services
 
             if (input == "product")
             {
-                path = pathToProduct;
+                path = productPath;
 
             }else if(input == "stock")
             {
-                path = pathToStock;
+                path = stockPath;
             }
-            else //need workd!!!
+            else 
             {
-                throw new Exception("not valid!");
+                throw new Exception("Error: Not valid");
             }
 
             File.AppendAllText(path, jsonToFile + Environment.NewLine);
 
-            return $"file succesfully adde to {fileName}";
+            return $"File succesfully added to {fileName}";
         }
         public static List<Product> ProductDeserialize()
         {
-            var listProduct = new List<Product>();
-            var file = File.ReadAllLines(pathToProduct);
+            var productList = new List<Product>();
+            var file = File.ReadAllLines(productPath);
 
             foreach (var line in file)
             {
-                var fileToJson = JsonConvert.DeserializeObject<Product>(line);
-                listProduct.Add(fileToJson);
+                var newObj = JsonConvert.DeserializeObject<Product>(line);
+                productList.Add(newObj);
             }
 
-            return listProduct;
+            return productList;
         }
         public static List<Stock> StockDeserialize()
         {
             var listStock = new List<Stock>();
-            var file = File.ReadAllLines(pathToStock);
+            var file = File.ReadAllLines(stockPath);
 
             foreach(var line in file)
             {

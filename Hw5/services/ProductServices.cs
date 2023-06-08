@@ -19,10 +19,9 @@ namespace Hw5.services
             var JsonL = Json.ProductDeserialize();
 
             foreach (var line in JsonL)
-            {
                 if (line.ProductId == id)
                     id++;
-            }
+
             return id;
         }
     }

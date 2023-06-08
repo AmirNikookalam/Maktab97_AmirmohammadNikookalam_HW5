@@ -9,7 +9,7 @@ namespace Hw5
         {
             ProductRepository productRepository = new ProductRepository();
             StockRepository stockRepository = new StockRepository();
-            Product newProduct = new Product();
+            Product newProduct = new Product(0,null,0);
 
             string? firstMenuInput;
             string? productmenu;
