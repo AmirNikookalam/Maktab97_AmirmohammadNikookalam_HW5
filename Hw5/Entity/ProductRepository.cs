@@ -1,8 +1,9 @@
 ﻿using Hw5.Domain;
+using Hw5.Interface;
 using Hw5.services;
 using System.Security.Cryptography;
 
-namespace Hw5.Interface
+namespace Hw5.Entity
 {
     public class ProductRepository : IProductRepository
     {
@@ -16,7 +17,7 @@ namespace Hw5.Interface
                 var id = ProductServices.GiveProductId();
                 int barcode = RandomNumberGenerator.GetInt32(100000000, 999999999);
 
-                var newProduct = new Product(id , name, barcode);
+                var newProduct = new Product(id, name, barcode);
 
                 Json.SerializeObject(newProduct, "Product");
 
@@ -41,10 +42,10 @@ namespace Hw5.Interface
         public string GetProductById(int id)
         {
             var JsonL = Json.ProductDeserialize();
-            
-            foreach(var line in JsonL)
+
+            foreach (var line in JsonL)
             {
-                if(line.ProductId == id)
+                if (line.ProductId == id)
                 {
                     return line.ProductName;
                 }

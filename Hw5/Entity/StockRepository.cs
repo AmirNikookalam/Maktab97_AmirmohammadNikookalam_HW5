@@ -1,9 +1,10 @@
 ﻿using Hw5.Domain;
+using Hw5.Interface;
 using Hw5.services;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Hw5.Interface
+namespace Hw5.Entity
 {
     public class StockRepository : IStockRepository
     {
@@ -15,10 +16,10 @@ namespace Hw5.Interface
             ProductRepository productRepository = new ProductRepository();
             var quantity = StockServices.CheckProductQuantity(productInStock.ProductId);
 
-            if(quantity != 0) 
+            if (quantity != 0)
             {
                 var newQuantity = quantity + productInStock.ProductQuantity;
-                var newProductPrice = (productInStock.ProductPrice * quantity) + (productInStock.ProductPrice * (quantity - productInStock.ProductQuantity)) / newQuantity;
+                var newProductPrice = productInStock.ProductPrice * quantity + productInStock.ProductPrice * (quantity - productInStock.ProductQuantity) / newQuantity;
                 productInStock.ProductQuantity = newQuantity;
                 productInStock.ProductPrice = newProductPrice;
                 productInStock.Name = StockServices.FindProductName(productInStock.ProductId);
@@ -81,7 +82,7 @@ namespace Hw5.Interface
             var lines = Json.StockDeserialize();
             List<Stock> result = new List<Stock>();
 
-            foreach(var line in lines)
+            foreach (var line in lines)
             {
                 result.Add(line);
             }
