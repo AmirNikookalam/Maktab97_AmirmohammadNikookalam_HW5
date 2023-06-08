@@ -27,9 +27,9 @@ namespace Hw5.Interface
 
         public string GetProductById(int id)
         {
-            var fileToJson = Json.ProductDeserialize();
+            var JsonL = Json.ProductDeserialize();
             
-            foreach(var line in fileToJson)
+            foreach(var line in JsonL)
             {
                 if(line.ProductId == id)
                 {

@@ -18,7 +18,7 @@ namespace Hw5.Interface
             if(quantity != 0) 
             {
                 var newQuantity = quantity + productInStock.ProductQuantity;
-                var newProductPrice = (productInStock.ProductPrice * quantity) + (productInStock.ProductPrice * productInStock.ProductQuantity) / newQuantity;
+                var newProductPrice = (productInStock.ProductPrice * quantity) + (productInStock.ProductPrice * (quantity - productInStock.ProductQuantity)) / newQuantity;
                 productInStock.ProductQuantity = newQuantity;
                 productInStock.ProductPrice = newProductPrice;
                 productInStock.Name = StockServices.FindProductName(productInStock.ProductId);

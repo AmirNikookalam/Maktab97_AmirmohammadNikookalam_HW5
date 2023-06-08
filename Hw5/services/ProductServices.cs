@@ -32,10 +32,6 @@ namespace Hw5.services
                 {
                     id++;
                 }
-                else
-                {
-                    return id;
-                }
             }
             return id;
         }
