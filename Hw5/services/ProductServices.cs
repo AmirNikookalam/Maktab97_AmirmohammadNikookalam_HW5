@@ -16,14 +16,12 @@ namespace Hw5.services
         public static int GiveProductId()
         {
             int id = 1;
-            var fileTOJson = Json.ProductDeserialize();
+            var JsonL = Json.ProductDeserialize();
 
-            foreach (var line in fileTOJson)
+            foreach (var line in JsonL)
             {
                 if (line.ProductId == id)
-                {
                     id++;
-                }
             }
             return id;
         }

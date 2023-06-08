@@ -1,5 +1,5 @@
 ﻿using Hw5.Domain;
-using Hw5.Interface;
+using Hw5.Entity;
 
 namespace Hw5
 {
@@ -14,7 +14,7 @@ namespace Hw5
             string? firstMenuInput;
             string? productmenu;
             string? addingProduct;
-            string? stockmenu;
+            string? menu;
             int productId = 0;
             int productQuantity = 0;
             int stockInProduct;
@@ -23,16 +23,16 @@ namespace Hw5
             do
             {
                 Console.Clear();
-                Console.Write("1.Product menu \n2.Stock menu-- \n-");
+                Console.Write("What do you wnat to do? \n1.Product menu \n2.Stock menu \n");
                 firstMenuInput = Console.ReadLine();
 
                 if (firstMenuInput == "1")
                 {
                     Console.Clear();
-                    Console.Write("---You are in product menu---\n--1.Adding Product/2.Get Product by Id/3.Product list/4.Exit---\n-");
-                    productmenu = Console.ReadLine();
+                    Console.Write("What do you wnat to do? \n1.Adding Product \n2.Get Product by Id \n3.Product list \n4.Exit \n");
+                    menu = Console.ReadLine();
 
-                    if (productmenu == "1")
+                    if (menu == "1")
                     {
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -47,7 +47,7 @@ namespace Hw5
                         Console.WriteLine(newpro);
                         Thread.Sleep(2000);
                     }
-                    else if (productmenu == "2")
+                    else if (menu == "2")
                     {
                         try
                         {
@@ -68,7 +68,7 @@ namespace Hw5
                         }
 
                     }
-                    else if (productmenu == "3")
+                    else if (menu == "3")
                     {
                         Console.Clear();
                         var list = productRe.GetProductList();
@@ -100,9 +100,9 @@ namespace Hw5
                     Console.Clear();
                     Console.WriteLine("---You are in Stock menu---");
                     Console.Write("--1.Buy product/2.sale product/3.Stock List/Exite\n-");
-                    stockmenu = Console.ReadLine();
+                    menu = Console.ReadLine();
 
-                    if (stockmenu == "1")
+                    if (menu == "1")
                     {
                         var list = productRe.GetProductList();
 
@@ -124,28 +124,29 @@ namespace Hw5
                         }
                         try
                         {
-                            Console.Write("give me the id of product you want: ");
+                            Console.Write("Give me id of the product you want: ");
                             stockInProduct = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("how much? ");
+
+                            Console.Write("Give me the quantity: ");
                             productQuantity = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("product price: ");
+
+                            Console.Write("Give me product price: ");
                             productPrice = Convert.ToInt32(Console.ReadLine());
 
-                            var newStock = new Stock(0, "", stockInProduct, productQuantity, productPrice);
-
-                            var buyProduct = stockRe.BuyProduct(newStock);
+                            var buyProduct = stockRe.BuyProduct(
+                                new Stock(0, "", stockInProduct, productQuantity, productPrice));
 
                             Console.WriteLine(buyProduct);
-                            Thread.Sleep(2000);
+                            Thread.Sleep(3000);
                         }
                         catch (Exception)
                         {
-                            Console.WriteLine("not valid input");
-                            Thread.Sleep(1000);
+                            Console.WriteLine("Error: Please give a valid input");
+                            Thread.Sleep(3000);
                         }
 
                     }
-                    else if (stockmenu == "2")
+                    else if (menu == "2")
                     {
                         Console.Clear();
                         var lines = stockRe.GetSalesProductList();
@@ -175,7 +176,7 @@ namespace Hw5
                         }
 
                     }
-                    else if (stockmenu == "3")
+                    else if (menu == "3")
                     {
                         var lines = stockRe.GetSalesProductList();
 
