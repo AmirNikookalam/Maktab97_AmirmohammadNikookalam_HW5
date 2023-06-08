@@ -7,8 +7,8 @@ namespace Hw5
     {
         static void Main(string[] args)
         {
-            ProductRepository productRe = new ProductRepository();
-            StockRepository stockRe = new StockRepository();
+            ProductRepository productRepository = new ProductRepository();
+            StockRepository stockRepository = new StockRepository();
             Product newProduct = new Product();
 
             string? firstMenuInput;
@@ -35,17 +35,14 @@ namespace Hw5
                     if (menu == "1")
                     {
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("warning: ");
-                        Console.ForegroundColor = ConsoleColor.White;
 
-                        Console.Write("For naming the product you must first start with capital letter fallow with three of four small letter one \"_\" \nand three digit\n\nProduct Name: ");
+                        Console.Write("Give me the product name: ");
                         addingProduct = Console.ReadLine();
                         newProduct.ProductName = addingProduct;
 
-                        var newpro = productRe.AddProduct(newProduct);
-                        Console.WriteLine(newpro);
-                        Thread.Sleep(2000);
+                        var newProject = productRepository.AddProduct(newProduct);
+                        Console.WriteLine(newProject);
+                        Thread.Sleep(3000);
                     }
                     else if (menu == "2")
                     {
@@ -56,7 +53,7 @@ namespace Hw5
                             productId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine();
 
-                            var status = productRe.GetProductById(productId);
+                            var status = productRepository.GetProductById(productId);
 
                             Console.WriteLine(status);
                             Thread.Sleep(3000);
@@ -71,15 +68,15 @@ namespace Hw5
                     else if (menu == "3")
                     {
                         Console.Clear();
-                        var list = productRe.GetProductList();
+                        var list = productRepository.GetProductList();
 
                         if (list.Count == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("you dont have any product!");
+                            Console.WriteLine("Error: You dont have any product");
                             Console.ForegroundColor = ConsoleColor.White;
 
-                            Thread.Sleep(2000);
+                            Thread.Sleep(3000);
                         }
                         else
                         {
@@ -98,13 +95,12 @@ namespace Hw5
                 else if (firstMenuInput == "2")
                 {
                     Console.Clear();
-                    Console.WriteLine("---You are in Stock menu---");
-                    Console.Write("--1.Buy product/2.sale product/3.Stock List/Exite\n-");
+                    Console.Write("What do you want to do? \n1.Buy product \n2.sale product \n3.Stock List \n4.Exit \n");
                     menu = Console.ReadLine();
 
                     if (menu == "1")
                     {
-                        var list = productRe.GetProductList();
+                        var list = productRepository.GetProductList();
 
                         Console.Clear();
                         if (list.Count == 0)
@@ -122,6 +118,7 @@ namespace Hw5
                                 Console.WriteLine($"Product Id: {line.ProductId} proudct name: {line.ProductName} product barcode : {line.Barcode}\n");
                             }
                         }
+
                         try
                         {
                             Console.Write("Give me id of the product you want: ");
@@ -133,8 +130,8 @@ namespace Hw5
                             Console.Write("Give me product price: ");
                             productPrice = Convert.ToInt32(Console.ReadLine());
 
-                            var buyProduct = stockRe.BuyProduct(
-                                new Stock(0, "", stockInProduct, productQuantity, productPrice));
+                            var buyProduct = stockRepository.BuyProduct(
+                                new Stock(0, null, stockInProduct, productQuantity, productPrice));
 
                             Console.WriteLine(buyProduct);
                             Thread.Sleep(3000);
@@ -146,10 +143,11 @@ namespace Hw5
                         }
 
                     }
+
                     else if (menu == "2")
                     {
                         Console.Clear();
-                        var lines = stockRe.GetSalesProductList();
+                        var lines = stockRepository.GetSalesProductList();
                         int stockId = 0;
                         int quantity = 0;
 
@@ -166,7 +164,7 @@ namespace Hw5
                             Console.Write("How much do you want to sale: ");
                             quantity = Convert.ToInt32(Console.ReadLine());
 
-                            var result = stockRe.SaleProduct(stockId, quantity);
+                            var result = stockRepository.SaleProduct(stockId, quantity);
                             Console.WriteLine(result);
                         }
                         catch (Exception)
@@ -176,16 +174,17 @@ namespace Hw5
                         }
 
                     }
+
                     else if (menu == "3")
                     {
-                        var lines = stockRe.GetSalesProductList();
+                        var lines = stockRepository.GetSalesProductList();
 
                         foreach (var line in lines)
-                        {
                             Console.WriteLine(line.Name);
-                        }
+
                         Console.ReadLine();
-                    }
+                    } 
+
                     else
                     {
                         continue;

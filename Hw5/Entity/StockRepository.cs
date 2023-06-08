@@ -23,9 +23,9 @@ namespace Hw5.Entity
                 productInStock.ProductQuantity = newQuantity;
                 productInStock.ProductPrice = newProductPrice;
                 productInStock.Name = StockServices.FindProductName(productInStock.ProductId);
-                productInStock.StockId = StockServices.GiveStockId();
+                productInStock.StockId = StockServices.GetStockId();
 
-                var target = StockServices.FindTargetLine(productInStock.ProductId);
+                var target = StockServices.FindLine(productInStock.ProductId);
                 StockServices.OverWriting(target, productInStock);
 
                 return productRepository.GetProductById(productInStock.ProductId) + "updateted";
@@ -33,7 +33,7 @@ namespace Hw5.Entity
             else
             {
                 productInStock.Name = StockServices.FindProductName(productInStock.ProductId);
-                productInStock.StockId = StockServices.GiveStockId();
+                productInStock.StockId = StockServices.GetStockId();
 
                 Json.SerializeObject(productInStock, "stock");
 
